@@ -1126,22 +1126,8 @@
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify({
-          timestamp:          new Date().toISOString(),
-          nombre:             data.name,
-          correo:             data.email,
-          empresa:            data.company,
-          cargo:              data.role,
-          monthly_bill:       data.monthlyBill,
-          num_providers:      data.providers,
-          audit_recency:      data.auditRecency,
-          waste_low_monthly:  r.lowMonthly,
-          waste_high_monthly: r.highMonthly,
-          waste_low_annual:   r.lowAnnual,
-          waste_high_annual:  r.highAnnual,
-          risk_score:         r.risk
-        })
-      }).catch(function (err) { console.error('Webhook error:', err); });
+        body: JSON.stringify(Object.assign({}, data, { timestamp: new Date().toISOString() }))
+      }).catch(function () {});
 
       buildResults();
       showScreen(4);
