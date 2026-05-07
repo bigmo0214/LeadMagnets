@@ -1121,12 +1121,18 @@
       data.role = roleVal;
 
       const r = calcResults();
-
       fetch(APPS_SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify(Object.assign({}, data, { timestamp: new Date().toISOString() }))
+        body: JSON.stringify(Object.assign({}, data, {
+          timestamp: new Date().toISOString(),
+          lowMonthly: r.lowMonthly,
+          highMonthly: r.highMonthly,
+          lowAnnual: r.lowAnnual,
+          highAnnual: r.highAnnual,
+          risk: r.risk
+        }))
       }).catch(function () {});
 
       buildResults();
