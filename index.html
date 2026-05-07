@@ -927,7 +927,7 @@
           <div class="cta-section">
             <h3 class="cta-heading">¿Quiere recuperar este margen?</h3>
             <p class="cta-sub">Una sesión de 15 minutos con nuestro equipo FinOps te muestra exactamente dónde está el ahorro.</p>
-            <a href="https://calendar.app.google/HuGQyzd4GnfRteKo7" target="_blank" rel="noopener noreferrer" class="btn-cta-white">Conversemos →</a>
+            <a href="https://calendar.app.google/HuGQyzd4GnfRteKo7" target="_blank" rel="noopener noreferrer" class="btn-cta-white" onclick="window.va?.('event', { name: 'cta_booked' })">Conversemos →</a>
           </div>
 
           <button class="restart-link" id="btn-restart" type="button">Reiniciar diagnóstico</button>
@@ -1030,12 +1030,14 @@
 
     // ── Navigation ─────────────────────────────────────────────────────────────
     document.getElementById('btn-start').addEventListener('click', function () {
+      window.va?.('event', { name: 'cta_start' });
       showScreen(2);
     });
     document.getElementById('btn-back-2').addEventListener('click', function () {
       showScreen(1);
     });
     document.getElementById('btn-next-2').addEventListener('click', function () {
+      window.va?.('event', { name: 'step1_complete', data: { providers: data.providers, auditRecency: data.auditRecency } });
       document.getElementById('progress-bar').style.width = '66%';
       showScreen(3);
     });
@@ -1136,8 +1138,10 @@
         }))
       }).catch(function () {});
 
+      window.va?.('event', { name: 'step2_complete', data: { company: data.company, risk: r.risk } });
       buildResults();
       showScreen(4);
+      window.va?.('event', { name: 'results_viewed', data: { risk: r.risk, highMonthly: r.highMonthly } });
     });
 
     // ── Calculation ────────────────────────────────────────────────────────────
